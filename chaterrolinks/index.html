@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CHAT APP</title>
+    <link rel="stylesheet" href="style.css">
+
+
+    <script src="app.js"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro&display=swap');
+    </style>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.21.0/firebase-database.js"></script>
+
+    <script>
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        var firebaseConfig = {
+            apiKey: "AIzaSyAy_xYGRSSPHCIF5lpuCaTpvfjctuEZZMw",
+            authDomain: "app-links-2.firebaseapp.com",
+            databaseURL: "https://app-links-2-default-rtdb.firebaseio.com",
+            projectId: "app-links-2",
+            storageBucket: "app-links-2.appspot.com",
+            messagingSenderId: "936526233804",
+            appId: "1:936526233804:web:d5295aaefb38f9b9af4269",
+            measurementId: "G-L81TPXG7EQ"
+        };
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+    </script>
+
+</head>
+
+<body>
+
+    <div id="menu">
+
+
+        <nav id="nav" class="navbar fixed-top navbar-light">
+            <div class="container-fluid">
+
+                <p class="welcome"><i onclick="backchat()" class="fas fa-chevron-left"></i> Chat: Bugs<b></b></p>
+                <img id="logo" width="30px" src="assents/img/logoapp.png" alt="">
+
+            </div>
+        </nav>
+    </div>
+    </div>
+    <div id="wrapper">
+
+
+
+
+        <div onclick="chatboxnormal()" id="chatbox">
+
+            <ul id="messages">
+
+
+
+            </ul>
+        </div>
+
+    </div>
+
+
+
+    </div>
+
+    <form onsubmit="return sendMessage();">
+        <div class="campo">
+            <input onclick="teclado()" type="text" id="message" class="input" size="25" maxlength="25" placeholder="Digite uma mensagem" autocomplete="off"><br>
+            <button type="submit" class="button"><i class="far fa-paper-plane"></i></button>
+        </div>
+    </form>
+
+    </div>
+
+</body>
+
+<script>
+    function backchat() {
+        location.href = "../index.html"
+    }
+    document.querySelector("#wrapper").scrollTop = document.querySelector("#chatbox").scrollHeight
+
+
+    function tirarbordermsg() {
+
+    }
+
+
+    var data = new Date();
+
+    // Guarda cada pedaço em uma variável
+    var dia = data.getDate(); // 1-31
+    var dia_sem = data.getDay(); // 0-6 (zero=domingo)
+    var mes = data.getMonth(); // 0-11 (zero=janeiro)
+    var ano2 = data.getYear(); // 2 dígitos
+    var ano4 = data.getFullYear(); // 4 dígitos
+    var hora = data.getHours(); // 0-23
+    var min = data.getMinutes(); // 0-59
+    var seg = data.getSeconds(); // 0-59
+    var mseg = data.getMilliseconds(); // 0-999
+    var tz = data.getTimezoneOffset(); // em minutos
+
+    // Formata a data e a hora (note o mês + 1)
+    var str_data = dia + '/' + (mes + 1);
+    var str_hora = hora + ':' + min;
+    const music = new Audio('audio.mp3');
+    var apagamsg = new Audio('apagado.mp3');
+    var send = new Audio('send.mp3')
+        // listen for incoming messages
+    firebase.database().ref("msgerrolinks").on("child_added", function(snapshot) {
+        var html = "";
+
+        if (snapshot.val().sender == myName) {
+            html += "<li style='color:white;' class='newmsg'  id='message-" + snapshot.key + "' >";
+            html += "<button style='float:right;' data-id='" + snapshot.key + "' onclick='deleteMessage(this);'>";
+            html += '<i style="animation: suave 2s;" class="fas fa-trash"></i>';
+            html += "</button>";
+
+
+            send.play();
+        } else {
+            html += "<li  id='message-" + snapshot.key + "' >";
+
+            music.play();
+        }
+        html += '<span id="hora">' + snapshot.val().hora + '</span>'
+        html += '<strong id="usuario">' + snapshot.val().sender + '</strong>  <br>' + snapshot.val().message;
+
+
+        html += "</li>";
+
+
+        document.getElementById("messages").innerHTML += html;
+        document.querySelector("#wrapper").scrollTop = document.querySelector("#chatbox").scrollHeight
+
+    });
+
+
+    function deleteMessage(self) {
+        // get message ID
+        var messageId = self.getAttribute("data-id");
+
+        // delete message
+        firebase.database().ref("msgerrolinks").child(messageId).remove();
+    }
+
+    // attach listener for delete message
+    firebase.database().ref("msgerrolinks").on("child_removed", function(snapshot) {
+        // remove message node
+        document.getElementById("message-" + snapshot.key).innerHTML = '<span class="msgapagada">Mensagem Apagada!</span>'
+
+    });
+    document.querySelector("div a img").style.display = "None"
+</script>
+<script src="https://kit.fontawesome.com/d3c038606f.js" crossorigin="anonymous"></script>
+<script src="https://kit.fontawesome.com/d3c038606f.js" crossorigin="anonymous"></script>
+
+</html>

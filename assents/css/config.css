@@ -4,6 +4,19 @@ html {
     scroll-behavior: smooth;
 }
 
+@keyframes footer {
+    0% {
+        
+        filter: blur(10px);
+        opacity: 0;
+    }
+    100% {
+      
+        filter: blur(0);
+        opacity: 100;
+    }
+}
+
 @keyframes nav {
     0% {
         margin-top: -2000px;
@@ -28,11 +41,11 @@ html {
 
 @keyframes right {
     0% {
-        margin-left: -2000px;
+        margin-right: -2000px;
         filter: blur(2px);
     }
     100% {
-        margin-left: 0;
+        margin-right: 0;
         filter: blur(0);
     }
 }
@@ -40,7 +53,7 @@ html {
 @keyframes menu {
     0% {
         margin-bottom: -2000px;
-        filter: blur(2px);
+        filter: blur(3px);
     }
     100% {
         margin-bottom: 0;
@@ -56,13 +69,24 @@ html {
         filter: blur(0);
     }
 }
-
+#divaulas {
+    width: 80%;
+    border-radius: 10px;
+}
+#divdias {
+    width: 80%;
+    border-radius: 10px;
+}
+#divcurso{
+    width: 80%;
+    border-radius: 10px;
+}
 #menuinicial {
-    animation: right 0.5s;
+    animation: left 0.5s;
 }
 
 #divmsg {
-    animation: left 0.5s;
+    animation: right 0.5s;
 }
 
 nav {
@@ -72,19 +96,28 @@ nav {
 #nav {
     animation: nav 0.5s;
 }
-
+#footer{
+    animation: footer 0.5s;
+}
+#body {
+    animation: right 0.5s;
+}
 .box-pequeno {
     animation: left 0.3s;
     box-sizing: border-box;
-    transition: all 1.5s;
+    transition: 0.5s;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     padding: 10px;
-    width: 96%;
+    width: 80%;
     background-color: #292a2e;
     margin: 0 auto;
     border-radius: 20px;
+}
+
+.box-pequeno:hover {
+    transition: 0.5s;
 }
 
 .box-pequeno img {
@@ -124,7 +157,7 @@ nav {
     margin-left: 10px;
     border: 1px solid gray;
     font-size: 8pt;
-    width: 35%;
+    width: 55%;
     border-radius: 5px;
     background-color: transparent;
     color: white;
@@ -156,16 +189,19 @@ nav {
 }
 
 .btn {
-    height: 45px;
+
+    text-align: center;
+    height: 40px;
     margin: 0 auto;
     outline: none;
     border: 1px solid rgba(47, 241, 151, 1);
-    font-size: 8pt;
-    width: 40%;
+    font-size: 9pt;
+    width:50%;
+    margin-left: 5px;
     border-radius: 10px;
     background-color: transparent;
     color: white;
-    transition: 0.5s;
+    transition: 0.8s;
 }
 
 .btn:hover {
@@ -189,6 +225,7 @@ nav {
 }
 
 .btns {
+    margin: 0 auto;
     display: flex;
     flex-direction: row;
 }
@@ -274,7 +311,7 @@ select option {
     height: 100px;
     background-color: #292a2e;
     margin: 0 auto;
-    border-radius: 20px;
+    border-radius:10px;
 }
 
 .box-quadrado button {
@@ -302,4 +339,24 @@ select option {
 form label {
     float: left;
     margin-left: 35px;
+}
+
+#chat img {
+    margin-top: -5px;
+    float: left;
+    border-radius: 10px;
+    padding: 10px;
+    background-color: white;
+    width: 60px;
+    height: auto;
+}
+
+.autocomplete-items div {
+    padding: 10px;
+    cursor: pointer;
+    color: white;
+    width: 80%;
+    background-color: rgba(47, 241, 151, 1);
+    border-bottom: 1px solid rgba(47, 241, 151, 1);
+    border-radius: 10px;
 }
